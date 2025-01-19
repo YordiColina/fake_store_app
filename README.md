@@ -32,4 +32,3 @@ La aplicación sigue una arquitectura limpia, utilizando  `Riverpod` para maneja
 - se usaron providers necesarios para mantener la logica lo mas modular posible, providers de usecases, de repositorys,
   de y de notifiers que son los que se usan en la vista con ref , un notifier por caso en especifico
 - la aplicación usa la librería 'Logger' para hacer logs mas destacados en la consola y evitar el uso de prints.
-- la aplicación en el itemNotifier crea dos cards por defecto al iniciar la aplicación como una muestra o ejemplo.
