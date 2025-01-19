@@ -21,8 +21,7 @@ class CartError extends CartState {
 class CartNotifier extends StateNotifier<CartState> {
   final GetCartUseCase getCartUseCase;
 
-  CartNotifier(this.getCartUseCase)
-      : super(CartLoading());
+  CartNotifier(this.getCartUseCase) : super(CartLoading());
 
   Future<void> getCart(int id) async {
     state = CartLoading();
@@ -33,9 +32,7 @@ class CartNotifier extends StateNotifier<CartState> {
             (cart) => CartLoaded(cart),
       );
     } catch (e) {
-      state = CartError('Error al cargar el carrito de compras : $e');
+      state = CartError('Error al cargar el carrito de compras: $e');
     }
   }
 }
-
-

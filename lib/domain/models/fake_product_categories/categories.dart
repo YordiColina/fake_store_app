@@ -10,8 +10,9 @@ class Categories {
 
   const Categories({required this.categories});
 
-  factory Categories.fromJson(Map<String, dynamic> json) =>
-      _$CategoriesFromJson(json);
+  factory Categories.fromJson(List<dynamic> json) =>
+      Categories(categories: json.cast<String>());
 
-  Map<String, dynamic> toJson() => _$CategoriesToJson(this);
+  Map<String, dynamic> toJson() =>
+      {'categories': categories};
 }

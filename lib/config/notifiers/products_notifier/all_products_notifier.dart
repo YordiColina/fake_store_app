@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/models/fake_product_data/product.dart';
 import '../../../domain/usecases/product_usacases/get_all_products_usecase.dart';
-import '../../providers/usecase_providers/Usecases_provider.dart';
-
 
 class AllProductsState {
   const AllProductsState();
@@ -40,7 +38,4 @@ class AllProductsNotifier extends StateNotifier<AllProductsState> {
   }
 }
 
-final allProductsNotifierProvider =
-StateNotifierProvider<AllProductsNotifier, AllProductsState>(
-      (ref) => AllProductsNotifier(ref.watch(getAllProductsUseCaseProvider)),
-);
+

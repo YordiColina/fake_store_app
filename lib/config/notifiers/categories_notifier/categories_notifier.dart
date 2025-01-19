@@ -1,9 +1,6 @@
-import 'package:fake_store_app/domain/models/fake_product_categories/categories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../domain/models/fake_product_data/product.dart';
+import '../../../domain/models/fake_product_categories/categories.dart';
 import '../../../domain/usecases/categories_usecases/get_categories_usecase.dart';
-import '../../../domain/usecases/product_usacases/get_product_usecase.dart';
-
 
 class CategoriesState {
   const CategoriesState();
@@ -24,8 +21,9 @@ class CategoriesError extends CategoriesState {
 class CategoriesNotifier extends StateNotifier<CategoriesState> {
   final GetCategoriesUseCase getCategoriesUseCase;
 
-  CategoriesNotifier(this.getCategoriesUseCase)
-      : super(CategoriesLoading());
+  CategoriesNotifier(this.getCategoriesUseCase) : super(CategoriesLoading()) {
+    getCategories();
+  }
 
   Future<void> getCategories() async {
     state = CategoriesLoading();
@@ -36,9 +34,7 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
             (categories) => CategoriesLoaded(categories),
       );
     } catch (e) {
-      state = CategoriesError('Error al cargar el producto : $e');
+      state = CategoriesError('Error al cargar las categorías: $e');
     }
   }
 }
-
-

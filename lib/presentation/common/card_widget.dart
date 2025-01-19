@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 
 import '../../domain/models/fake_product_data/product.dart';
 
@@ -57,12 +56,11 @@ class _CardWidgetState extends State<CardWidget> {
                       color: Color.fromRGBO(102, 102, 102, 1)
                   ),
                 ),
-                const Center(
-                  child: Icon(
-                    Icons.shopping_bag_outlined,
-                    color: Color.fromRGBO(158, 123, 187, 1.0),
-                    size: 40,
-                  ),
+                Center(
+                  child: SizedBox(
+                     width: 155,
+                     height: 100,
+                      child: Image.network(widget.product.image))
                 ),
                 Text(
                   "Category:\n${widget.product.category}",
