@@ -27,7 +27,7 @@ La aplicación sigue una arquitectura limpia, utilizando  `Riverpod` para maneja
 - los modelos de la aplicación son diseñados a partir de los campos esperados por cada endpoint y manejan la inmutabilidad
   es decir que sus propiedades son de tipo final, el constructor es una constante, no permite funciones de tipo
   copyWith y aparte tiene la etiqueta de inmutable, se uso json serialization también
-- para el consumo de la APi se establecio el tipo de retorno de tipo either y el objeto que se desee (product,categories,cart)
+- para el consumo de la APi se uso la libreria chopper y se establecio el tipo de retorno de tipo either y el objeto que se desee (product,categories,cart)
 - en los notifier se uso la recreación manual de los posibles estados de consumo con su respectiva jerarquia ,
 - se usaron providers necesarios para mantener la logica lo mas modular posible, providers de usecases, de repositorys,
   de y de notifiers que son los que se usan en la vista con ref , un notifier por caso en especifico
