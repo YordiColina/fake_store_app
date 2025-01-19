@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:fake_store_app/domain/models/fake_product_data/product.dart';
 import 'package:fake_store_app/domain/models/fake_product_data/repository/product_repository.dart';
@@ -14,7 +16,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<String, List<Product>>> getAllProducts() async {
-    try {
+    return await ApiErrorHandler.execute(() async {
       final response = await _productService.getAllProducts();
 
       if (response.isSuccessful) {
@@ -26,22 +28,14 @@ class ProductRepositoryImpl implements ProductRepository {
             _loggerService.logProductDetails(product, response.statusCode);
           }
 
-          return Right(products);
+          return products;
         } else {
-          final errorMessage = 'Unexpected response format: ${response.body}';
-          _loggerService.logError(errorMessage);
-          return Left(errorMessage);
+          throw FormatException('Unexpected response format: ${response.body}');
         }
       } else {
-        final errorMessage =
-            'API Error: ${response.statusCode} - ${response.error ?? "Unknown error"}';
-        _loggerService.logError(errorMessage);
-        return Left(errorMessage);
+        throw HttpException(
+            'API Error: ${response.statusCode} - ${response.error ?? "Unknown error"}');
       }
-    } catch (e) {
-      final errorMessage = ApiErrorHandler.handleError(e);
-      _loggerService.logError(errorMessage);
-      return Left(errorMessage);
-    }
+    });
   }
 }

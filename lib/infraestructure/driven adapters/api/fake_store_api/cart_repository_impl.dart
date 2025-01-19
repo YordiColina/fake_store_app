@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:fake_store_app/domain/models/fake_cart_data/cart.dart';
 import 'package:fake_store_app/domain/models/fake_cart_data/repository/cart_repository.dart';
@@ -15,29 +16,25 @@ class CartRepositoryImpl implements CartRepository {
 
   @override
   Future<Either<String, Cart>> getCart(int cartId) async {
-    try {
+    return await ApiErrorHandler.execute(() async {
       final response = await _cartService.getCart(cartId);
       if (response.isSuccessful) {
         final data = response.body as Map<String, dynamic>;
         final Cart cart = Cart.fromJson(data);
-        for(var carts in cart.products) {
-          _loggerService.logInfo('Carrito  obtenido correctamente\n ${response.statusCode}\n'
-              'carrito nro ${cart.id}\n'
-              'id de producto ${carts.productId}\n'
-              'cantidad de ese producto ${carts.quantity}');
+        for (var carts in cart.products) {
+          _loggerService.logInfo(
+              'Carrito  obtenido correctamente\n ${response.statusCode}\n'
+                  'carrito nro ${cart.id}\n'
+                  'id de producto ${carts.productId}\n'
+                  'cantidad de ese producto ${carts.quantity}');
         }
-        return Right(cart);
+        return cart;
       } else {
-        final errorMessage =
-            'API Error: ${response.statusCode} - ${response.error ?? "Unknown error"}';
-        _loggerService.logError(errorMessage);
-        return Left(errorMessage);
+        throw HttpException(
+            'API Error: ${response.statusCode} - ${response.error ??
+                "Unknown error"}');
       }
-    } catch (e) {
-      final errorMessage = ApiErrorHandler.handleError(e);
-      _loggerService.logError(errorMessage);
-      return Left(errorMessage);
-    }
+    });
   }
   }
 
