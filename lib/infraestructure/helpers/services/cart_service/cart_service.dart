@@ -1,5 +1,5 @@
 import 'package:chopper/chopper.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 part 'cart_service.chopper.dart';
 
